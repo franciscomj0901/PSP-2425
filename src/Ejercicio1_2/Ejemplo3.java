@@ -7,8 +7,8 @@ import java.io.InputStream;
 
 public class Ejemplo3 {
     public static void main(String[] args) throws IOException {
-        File directorio = new File("/home/usuario/PSP/out/production/PSP");
-        ProcessBuilder pb = new ProcessBuilder("/home/usuario/.jdks/openjdk-23/bin/java", "Ejer.Ej2", "Me llamo Fran");
+        File directorio = new File("out/production/PSPFranciscoMejias"); /*Indico un directorio que no existe por lo que saltará un error*/
+        ProcessBuilder pb = new ProcessBuilder("java", "Ejercicio1_1.LeerNombre", "Me llamo Fran");
         pb.directory(directorio);
         System.out.println("Directorio de trabajo: \n" + pb.directory());
         Process p = pb.start();
