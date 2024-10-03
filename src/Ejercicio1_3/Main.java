@@ -8,20 +8,19 @@ import java.io.OutputStream;
 public class Main {
     public static void main(String[] args) throws IOException {
         File directorio = new File("out/production/PSP-2425");
-
         ProcessBuilder pb = new ProcessBuilder("java", "Ejercicio1_3.EjecutarSuma");
-
         pb.directory(directorio);
-
         Process p=pb.start();
-
+        /*Creamos un proceso que ejecute el programa EjecutarSuma el cuál ejecutará la suma entre 2 números*/
 
 
         OutputStream os = p.getOutputStream();
         os.write("10\n".getBytes());
         os.write("16\n".getBytes());
         os.flush();
-
+        /*El programa EjecutarSuma recibe 2 números que pide por pantalla por lo que se los pasaremos mediante un
+        OutputStream el cuál tiene un método llamado write() que nos permite pasar parámetros al proceso que estamos ejecutando
+        Utilizamos el método flush() después de pasar ambos números para asegurarnos de que los escribe*/
 
         InputStream is=p.getInputStream();
         int c;
@@ -29,5 +28,10 @@ public class Main {
             System.out.print((char) c);
         }
         is.close();
+        os.close();
+
+        /*Leemos la salida del proceso, en este caso, el resultado de la suma si se ha introducido dos números, y un mensaje de error
+        si se ha introducido algún carácter no numérico. La lectura la realizamos mediante un InputStream que va leyendo carácter a carácter
+        e imprimiéndolos por pantalla hasta que no haya más*/
     }
 }
