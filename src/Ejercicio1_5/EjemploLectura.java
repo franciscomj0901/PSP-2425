@@ -1,8 +1,6 @@
-package Ejercicio1_4;
+package Ejercicio1_5;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class EjemploLectura {
