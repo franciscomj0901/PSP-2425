@@ -22,8 +22,8 @@ public class Main {
 
 
         pb.redirectInput(ProcessBuilder.Redirect.from(entrada)); /* Redirige la entrada para que sea desde archivo "Ejercicio1_5.txt", asociado al objeto File "entrada" */
+        pb.redirectOutput(ProcessBuilder.Redirect.appendTo(salida)); /* Redirige la salida para que sea al archivo "salida.txt", asociado al objeto File "salida" */
         pb.redirectOutput(ProcessBuilder.Redirect.INHERIT); /* Redirige la salida a la misma que la clase que está ejecutando el proceso, es decir, la consola */
-        pb.redirectOutput(ProcessBuilder.Redirect.to(salida)); /* Redirige la salida para que sea al archivo "salida.txt", asociado al objeto File "salida" */
         pb.redirectError(ProcessBuilder.Redirect.to(errores)); /* Redirige los errores para que sea al archivo "errores.txt", asociado al objeto File "errores" */
 
         try {
