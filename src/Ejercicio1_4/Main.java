@@ -1,9 +1,12 @@
+/* Este programa ejecuta un proceso que lee un fichero y redirecciona la salida
+   y los errores a dos archivos distintos usando redirectOutput y redirectError.
+   El archivo de entrada del proceso también es redireccionado mediante redirectInput */
+
 package Ejercicio1_4;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
 
 public class Main {
     public static void main(String[] args) throws IOException {

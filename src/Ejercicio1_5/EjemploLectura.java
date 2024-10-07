@@ -1,3 +1,5 @@
+/* Este programa lee un fichero de texto y lo devuelve por pantalla */
+
 package Ejercicio1_5;
 
 import java.io.BufferedReader;

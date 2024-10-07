@@ -1,8 +1,8 @@
+/* Este programa lee un fichero de texto y lo devuelve por pantalla */
+
 package Ejercicio1_4;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class EjemploLectura {

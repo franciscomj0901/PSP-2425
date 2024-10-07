@@ -1,3 +1,6 @@
+/* Este programa ejecuta un proceso que realiza a suma entre dos números e imprime por pantalla
+   su resultado */
+
 package Ejercicio1_3;
 
 import java.io.File;

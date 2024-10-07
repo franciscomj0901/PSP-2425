@@ -1,7 +1,9 @@
+/* Este programa ejecuta un proceso el cuál lee un fichero de texto y lo imprime por pantalla.
+   También toma el mismo fichero de entrada y escribe salida a otro fichero */
+
 package Ejercicio1_5;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -22,8 +24,7 @@ public class Main {
 
 
         pb.redirectInput(ProcessBuilder.Redirect.from(entrada)); /* Redirige la entrada para que sea desde archivo "Ejercicio1_5.txt", asociado al objeto File "entrada" */
-        pb.redirectOutput(ProcessBuilder.Redirect.appendTo(salida)); /* Redirige la salida para que sea al archivo "salida.txt", asociado al objeto File "salida" */
-        pb.redirectOutput(ProcessBuilder.Redirect.INHERIT); /* Redirige la salida a la misma que la clase que está ejecutando el proceso, es decir, la consola */
+        pb.redirectOutput(ProcessBuilder.Redirect.INHERIT); /* Redirige la salida a la consola */
         pb.redirectError(ProcessBuilder.Redirect.to(errores)); /* Redirige los errores para que sea al archivo "errores.txt", asociado al objeto File "errores" */
 
         try {
@@ -32,6 +33,16 @@ public class Main {
             int exitCode = proceso.waitFor(); /* Espera que el proceso termine y captura el código de salida mediante el método waitFor(). Luego lo imprime */
             System.out.println("Proceso finalizado con código de salida: " + exitCode);
         } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try(BufferedReader br = new BufferedReader(new FileReader(entrada)); BufferedWriter bw = new BufferedWriter(new FileWriter(salida))){
+            /* Abro el archivo de entrada para leerlo y el archivo de salida para escribir la salida  */
+            String texto;
+            while ((texto = br.readLine()) != null) {  /* Mientras que la línea que lee con el método readLine del BufferedReader no sea nula sigue ejecutando */
+                bw.write(texto+"\n"); /* Escribe la línea leída */
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

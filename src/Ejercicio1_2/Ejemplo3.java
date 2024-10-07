@@ -1,3 +1,5 @@
+/* Este programa ejecuta un proceso con un programa que no existe y muestra los errores por pantalla */
+
 package Ejercicio1_2;
 
 import java.io.*;

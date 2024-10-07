@@ -1,14 +1,14 @@
+/* Esta clase realiza la suma de dos números que obtiene mediante un BufferedReader e imprime por
+   pantalla su resultado. */
 package Ejercicio1_3;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class EjecutarSuma {
     public static void main(String[] args) {
-        /*Esta clase realiza la suma de dos números que obtiene mediante un BufferedReader e imprime por
-        pantalla su resultado. Con el BufferedReader obtiene una cadena de texto que convierte en un entero
+        /* Con el BufferedReader obtiene una cadena de texto que convierte en un entero
         mediante un cast con el método Integer.parseInt(). Si al hacer el cast salta una excepción que indica
-        que no se ha introducido un número muestra un mensaje por pantalla, si no, continúa con la ejecución*/
+        que no se ha introducido un número muestra un mensaje por pantalla, si no, continúa con la ejecución */
 
         int suma = 0;
         try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
