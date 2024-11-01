@@ -1,7 +1,7 @@
-package Bloque2.Actividad2_4.Ejercicio8;
+package Bloque2.Actividad2_5.Ejercicio9;
 
 public class MyHilo extends Thread{
-    /* Esta clase extiende de Thread y su función es incrementar un contador de 1 en 1 en un intervalo
+     /* Esta clase extiende de Thread y su función es incrementar un contador de 1 en 1 en un intervalo
     de tiempo introducido en su constructor, en el cuál también se introducirá su nombre.
     En cada incremento del contador se llama al método esperandoParaSuspender de un objeto que hemos
     instanciado de la clase SolicitarSuspender que lo que comprueba es si el hilo se ha suspendido o no mediante
@@ -37,7 +37,7 @@ public class MyHilo extends Thread{
                 suspender.esperandoParaSuspender();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+
         }
     }
 
