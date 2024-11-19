@@ -1,9 +1,9 @@
 package Bloque2.Actividad2_10;
 
 public class Consumidor extends Thread{
-    /* Esta clase extiende de Thread, recibe un número n por parámetros y un objeto cola
-       en el cuál en su método run() obtiene números de la cola y los muestra en pantalla,
-       si no hay ningun objeto en la cola, muestra -1 */
+    /* Esta clase extiende de Thread, recibe un identificador n por parámetros y un objeto cola.
+       En el método run() obtiene cadenas de la cola y las muestra en pantalla*/
+
     private Cola cola;
     private int n;
 
