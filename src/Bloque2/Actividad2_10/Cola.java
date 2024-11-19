@@ -5,10 +5,10 @@ public class Cola {
      la cola y un método put() que inserta un número a la cola. Tiene también una variable
      que indica si hay o no un número en la cola para obtener, si no hay y se ejecuta el
      get(), devuelve -1 */
-    private int numero;
+    private String cadena;
     private boolean disponible=false;
 
-    public synchronized int get(){
+    public synchronized String get(){
         while (!disponible){
             try {
                 wait();
@@ -16,16 +16,16 @@ public class Cola {
         }
         disponible=false;
         notify();
-        return numero;
+        return cadena;
     }
 
-    public synchronized void put(int valor){
+    public synchronized void put(String valor){
         while (disponible){
             try {
                 wait();
             } catch (InterruptedException e) {}
         }
-        numero=valor;
+        cadena=valor;
         disponible=true;
         notifyAll();
     }

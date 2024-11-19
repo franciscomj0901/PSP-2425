@@ -15,13 +15,13 @@ public class Saldo {
     }
 
     public int getValorSaldo() throws InterruptedException {
-        Thread.sleep(100);
+        Thread.sleep((long) ((Math.random()+1)*100));
         return valorSaldo;
 
     }
 
     public void setValorSaldo(int valorSaldo) throws InterruptedException {
-        Thread.sleep(120);
+        Thread.sleep((long) ((Math.random()+1)*100));
         this.valorSaldo = valorSaldo;
     }
 

@@ -14,10 +14,10 @@ public class Consumidor extends Thread{
 
     @Override
     public void run() {
-        int valor = 0;
-        for (int i = 0; i < 5; i++) {
+        String valor = "";
+        while (true) {
             valor = cola.get();
-            System.out.println("\t"+i + "=>Consumidor : "+n+", consume: "+valor);
+            System.out.println(valor);
         }
     }
 }

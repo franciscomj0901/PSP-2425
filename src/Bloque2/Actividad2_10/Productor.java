@@ -13,9 +13,12 @@ public class Productor extends Thread{
 
     @Override
     public void run() {
-        for (int i = 0; i < 5; i++) {
-            cola.put(i);
-            System.out.println(i + "=>Productor : "+n+", produce: "+i);
+        for (int i = 1; i > 0; i++) {
+            if (i%2==0){
+                cola.put("PONG");
+            }else {
+                cola.put("PING");
+            }
         }
         System.out.println("FIN PRODUCTOR...");
     }
