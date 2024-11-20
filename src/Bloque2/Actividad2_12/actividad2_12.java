@@ -6,13 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class actividad2_12 extends Applet implements ActionListener {
-   /* Clase que extiende de Applet e implementa ActionListener para manejar dos hilos que
-   incrementan un contador y muestrab su valor en pantalla.
-   Cada hilo arranca con un valor inicial y lo incrementa en run() cada 0.3 s.
-   La interfaz se actualiza constantemente con el método repaint() para mostrar el valor de cada hilo.
-   Los botones permiten finalizar cada hilo de forma individual, cambiando su etiqueta a "Finalizado".
-   Sin un retraso en run(), los hilos se ejecutarían de manera desordenada, pero con una pausa,
-   vemos una actualización ordenada. */
+   /* Clase que extiende de Applet e implementa ActionListener para manejar un hilo que
+   muestra en pantalla una "o" y que al pulsar un botón, se mueve horizontalmente de
+   izquierda a derecha.
+   El hilo arranca con un valor inicial en x de la "o" en 1 y lo incrementa o decrementa en run()
+   siempre que esté en ejecución. Para comprobar si esta yendo de izquierda a derecha o de derecha a izquierda
+   tenemos un booleano que empieza en true para indicar que la x se debe incrementar, cuando llega
+   al valor máximo del ancho de la pantalla, el booleano se pone en false y empieza a decrementarse la x
+   para que así vaya de derecha a izquierda.
+   La interfaz se actualiza constantemente con el método repaint() para mostrar el nuevo valor
+   de x en la "o".
+   El boton permite iniciar, parar y reanudar el hilo, cambiando su etiqueta a "Finalizar" o "Reanudar"
+   según sea conveniente.
+   La velocidad de incremento de la x está controlada mediante un sleep(). */
 
 
     private HiloContador h;
@@ -82,25 +88,30 @@ public class actividad2_12 extends Applet implements ActionListener {
 
     public class HiloContador extends Thread{
 
-        private long CONTADOR;
-
         HiloContador(){}
-
-        public long getCONTADOR() {
-            return CONTADOR;
-        }
 
         public void run(){
             Thread hilo = Thread.currentThread();
-
-            while(isEjecucion()){
-                if (getValorX()>=0 && getValorX()<getSize().width){
-                    setValorX(getValorX()+1);
-                }else{
-
+            while (true) {
+                if (ejecucion) {
+                    if (incremento) {
+                        valorX++;
+                        if (valorX >= getSize().getWidth()) {
+                            incremento = false;
+                        }
+                    } else {
+                        valorX--;
+                        if (valorX <= 1) {
+                            incremento = true;
+                        }
+                    }
+                    repaint();
                 }
-                repaint();
-                CONTADOR++;
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
