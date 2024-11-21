@@ -9,19 +9,19 @@ package Bloque2.Actividad2_11.segundaParte;
  *
  * @author antonioj
  */
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 public class FrmCarrera extends javax.swing.JFrame implements Observer {
+    /* He añadido mediante el uso de sincronización, que solo un caballo se incremente a la vez y que se genera un nuevo turno cada vez que se incremente,
+       de modo que un caballo puede acabar la carrera sin moverse si no le toca nunca el turno. También he mostrado en pantalla las posiciones de los caballos
+        conforme van llegando.*/
+
+
 
     private Thread[] hilos;
-
-    private ArrayList<String> posiciones; // Lista para registrar posiciones finales
-
-
+    
+    
     public FrmCarrera() {
         initComponents();
         hilos = new Thread[4];
@@ -46,7 +46,7 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
         jLabel4 = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        lblGanador = new javax.swing.JLabel();
+        lblPosiciones = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +73,7 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jLabel5.setText("El ganador es: ");
+        jLabel5.setText("Posiciones: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,10 +102,10 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
                                 .addComponent(pg4, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblPosiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,7 +138,7 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblGanador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblPosiciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
@@ -147,23 +147,24 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {
-        this.btnIniciar.setEnabled(false);
-        this.lblGanador.setText("");
-        posiciones = new ArrayList<>();
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
 
-        // Crear hilos y asignarles la lista compartida
+        this.btnIniciar.setEnabled(false);
+        this.lblPosiciones.setText("");
+        
         for (int i = 0; i < hilos.length; i++) {
-            Caballo c = new Caballo((i + 1) + "", posiciones);
+            Caballo c = new Caballo((i+1)+"");
             c.addObserver(this);
             hilos[i] = new Thread(c);
-            hilos[i].start();  // Inicia los hilos sin usar join()
-        }
-    }
+            hilos[i].start();
 
-    private void terminar(){
+        }
         
-    }
+        
+        
+    }//GEN-LAST:event_btnIniciarActionPerformed
+
+
     
     /**
      * @param args the command line arguments
@@ -207,7 +208,7 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblGanador;
+    private javax.swing.JLabel lblPosiciones;
     private javax.swing.JProgressBar pg1;
     private javax.swing.JProgressBar pg2;
     private javax.swing.JProgressBar pg3;
@@ -219,40 +220,34 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
         Caballo c = (Caballo) o;
         int porcentaje = (int) arg;
 
-        // Actualizar las barras de progreso en el hilo de eventos de Swing
-        SwingUtilities.invokeLater(() -> {
-            switch (c.getNombre()) {
-                case "1":
-                    this.pg1.setValue(porcentaje);
-                    break;
-                case "2":
-                    this.pg2.setValue(porcentaje);
-                    break;
-                case "3":
-                    this.pg3.setValue(porcentaje);
-                    break;
-                case "4":
-                    this.pg4.setValue(porcentaje);
-                    break;
-            }
+        // Actualiza el progreso de los caballos
+        switch (c.getNombre()) {
+            case "1":
+                this.pg1.setValue(porcentaje);
+                break;
+            case "2":
+                this.pg2.setValue(porcentaje);
+                break;
+            case "3":
+                this.pg3.setValue(porcentaje);
+                break;
+            case "4":
+                this.pg4.setValue(porcentaje);
+                break;
+        }
 
-        });
-
-        // Cuando un caballo llega al 100%, registrar su posición
+        // Agrega al caballo a la lista de posiciones cuando termine
         if (porcentaje >= 100) {
-            synchronized (posiciones) {
-                // Agregar solo si no está ya en posiciones
-                if (!posiciones.contains(c.getNombre())) {
-                    posiciones.add(c.getNombre());
-                    System.out.println("Posiciones actuales: " + posiciones); // Imprimir en la terminal
-                    // Si todos los caballos han terminado, mostrar el ganador
-                    if (posiciones.size() == hilos.length) {
-                        System.out.println("Carrera terminada. Orden final: " + posiciones);
-                        this.lblGanador.setText("Caballo " + posiciones.get(0));
-                        this.btnIniciar.setEnabled(true);
-                    }
-                }
+            if (!lblPosiciones.getText().contains("Caballo " + c.getNombre())) {
+                this.lblPosiciones.setText(lblPosiciones.getText() + "Caballo " + c.getNombre() + ", ");
+                System.out.println("Caballo " + c.getNombre() + " ha terminado.");
+
             }
+        }
+
+        // Verifica si todos los caballos han terminado
+        if (pg1.getValue() >= 100 && pg2.getValue() >= 100 && pg3.getValue() >= 100 && pg4.getValue() >= 100) {
+            this.btnIniciar.setEnabled(true); // Habilita el botón una vez que todos terminen
         }
     }
 

@@ -9,60 +9,64 @@ package Bloque2.Actividad2_11.segundaParte;
  *
  * @author antonioj
  */
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Caballo extends Observable implements Runnable {
 
     private String nombre;
+    private static String turno = ""; // Almacena el caballo que tiene el turno
 
-    private ArrayList<String> posiciones; // lista compartido
-
-    public Caballo(String nombre, ArrayList<String> posiciones) {
+    public Caballo(String nombre) {
         this.nombre = nombre;
-        this.posiciones = posiciones;
+        this.turno = String.valueOf(generaNumeroAleatorio(1, 4));
+
     }
 
     public String getNombre() {
         return nombre;
     }
 
+
     @Override
     public void run() {
         int porcentaje = 0;
+        int numAleatorio;
         try {
-            while (porcentaje < 100) {
-                int numAleatorio = generaNumeroAleatorio(1, 15);
-                porcentaje += numAleatorio;
+            while (true) { // Cada caballo sigue corriendo hasta llegar al 100%
+                synchronized (Caballo.class) {
+                    while (!turno.equals(nombre)) {
+                        Caballo.class.wait(); // Espera hasta que sea su turno
+                    }
+                    if (porcentaje < 100) {
+                        // Incremento del porcentaje
+                        numAleatorio = generaNumeroAleatorio(1, 15);
+                        System.out.println("Caballo " + nombre + " ha aumentado en " + numAleatorio);
+                        porcentaje += numAleatorio;
 
+                        // Notifica el avance
+                        this.setChanged();
+                        this.notifyObservers(porcentaje);
+                        this.clearChanged();
+                        Thread.sleep(1000);
 
-                System.out.println("Caballo " + nombre + " ha aumentado en " + numAleatorio);
+                    }
+                    // Cambia el turno aleatoriamente
+                    turno = String.valueOf(generaNumeroAleatorio(1, 4));
+                    Caballo.class.notifyAll(); // Notifica a los otros hilos
 
-                // Notificar el progreso
-                this.setChanged();
-                this.notifyObservers(porcentaje);
-                this.clearChanged();
+                }
 
-                Thread.sleep(100);  // Simula el tiempo de progreso
+                // Simula un tiempo de espera antes del próximo turno
             }
 
-            // Registrar la posición final
-            synchronized (posiciones) {
-                posiciones.add(nombre);
-            }
-
+            // Cuando el caballo llega al 100%, sale del ciclo
         } catch (InterruptedException e) {
             System.out.println("Hilo interrumpido: " + nombre);
         }
     }
 
     public static int generaNumeroAleatorio(int minimo, int maximo) {
-        int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
-        return num;
+        return (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
     }
-
 }
 

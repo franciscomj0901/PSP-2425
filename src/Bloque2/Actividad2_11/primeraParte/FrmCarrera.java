@@ -13,6 +13,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class FrmCarrera extends javax.swing.JFrame implements Observer {
+    /* He implementado prioridades para que siempre un caballo gane, también he implementado, que según el nombre del caballo, se genere
+       un número aleatorio mayor o menor, de forma que siempre quedarán en las mismas posiciones.*/
+
 
     private Thread[] hilos;
     
