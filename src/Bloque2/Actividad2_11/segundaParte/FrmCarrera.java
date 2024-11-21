@@ -236,23 +236,24 @@ public class FrmCarrera extends javax.swing.JFrame implements Observer {
                     break;
             }
 
-            // Cuando un caballo llega al 100%, registrar su posición
-            if (porcentaje >= 100) {
-                synchronized (posiciones) {
-                    // Agregar solo si no está ya en posiciones
-                    if (!posiciones.contains(c.getNombre())) {
-                        posiciones.add(c.getNombre());
-                        System.out.println("Posiciones actuales: " + posiciones); // Imprimir en la terminal
-                        // Si todos los caballos han terminado, mostrar el ganador
-                        if (posiciones.size() == hilos.length) {
-                            System.out.println("Carrera terminada. Orden final: " + posiciones);
-                            this.lblGanador.setText("Caballo " + posiciones.get(0));
-                            this.btnIniciar.setEnabled(true);
-                        }
+        });
+
+        // Cuando un caballo llega al 100%, registrar su posición
+        if (porcentaje >= 100) {
+            synchronized (posiciones) {
+                // Agregar solo si no está ya en posiciones
+                if (!posiciones.contains(c.getNombre())) {
+                    posiciones.add(c.getNombre());
+                    System.out.println("Posiciones actuales: " + posiciones); // Imprimir en la terminal
+                    // Si todos los caballos han terminado, mostrar el ganador
+                    if (posiciones.size() == hilos.length) {
+                        System.out.println("Carrera terminada. Orden final: " + posiciones);
+                        this.lblGanador.setText("Caballo " + posiciones.get(0));
+                        this.btnIniciar.setEnabled(true);
                     }
                 }
             }
-        });
+        }
     }
 
 }
