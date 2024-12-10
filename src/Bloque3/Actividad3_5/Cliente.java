@@ -1,14 +1,14 @@
-package Bloque3.Actividad3_3;
+package Bloque3.Actividad3_5;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Cliente {
-    /* Clase Cliente que recibe una cadena desde el servidor y que devuelve al servidor
-    en minúsculas con el uso del método toLoweCase(). */
-
+    /*Clase cliente que se conecta al servidor y recibe desde él el número de cliente
+    asignado por el servidor */
     public static void main(String[] args) throws IOException {
         String host = "localhost";
         int puerto = 6000;
@@ -16,21 +16,13 @@ public class Cliente {
         System.out.println("PROGRAMA CLIENTE INICIADO");
         Socket Cliente = new Socket(host, puerto);
 
+
         System.out.print("LEYENDO DESDE EL SERVIDOR: ");
         DataInputStream flujoEntrada = new DataInputStream(Cliente.getInputStream());
-        String cadena = flujoEntrada.readUTF();
-        System.out.println(cadena);
-
-        cadena=cadena.toLowerCase();
-
-        System.out.print("MANDANDO MENSAJE AL SERVIDOR: ");
-        System.out.println(cadena);
-        DataOutputStream flujoSalida = new DataOutputStream(Cliente.getOutputStream());
-        flujoSalida.writeUTF(cadena);
-
+        int numeroCliente = flujoEntrada.readInt();
+        System.out.println("Número de cliente asignado: " + numeroCliente);
 
         flujoEntrada.close();
-        flujoSalida.close();
         Cliente.close();
 
 

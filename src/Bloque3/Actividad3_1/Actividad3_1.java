@@ -5,6 +5,17 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Actividad3_1 {
+    /* Esta clase solicita por teclado una dirección IP o el nombre
+    de una máquina y mediante el uso de los siguientes métodos muestra su salida
+    correspondiente:
+        - getHostName(): devuelve nombre del host
+        - getAllByName(): devuelve todas las direcciones IP asociadas a ese host
+        - getHostAddress(): devuelve la dirección IP del host
+        - toString(): devuelve la dirección completa del host
+        - getCanonicalHostName(): devuelve el nombre canónico del host
+     */
+
+
     public static void main(String[] args) {
         System.out.print("Introduce una dirección IP o el nombre de una máquina (Para cancelar introduce 'c'): ");
         String direccion= new Scanner(System.in).next();

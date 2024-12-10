@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServidorTCP {
+    /* Clase servidor que permite conectarse a dos clientes y que muestra el puerto
+        local y remoto de cada uno */
+
     public static void main(String[] args) throws IOException {
         int puerto = 6000;
         ServerSocket servidor = new ServerSocket(puerto);
