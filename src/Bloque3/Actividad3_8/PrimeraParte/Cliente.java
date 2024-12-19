@@ -8,6 +8,10 @@ import java.net.Socket;
 
 public class Cliente {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        /* Clase Cliente que se conecta a un servidor mediante datagramas UDP, envía un objeto de tipo Persona
+            serializado y espera recibir de vuelta una versión modificada del mismo. Muestra por consola
+            la información de la Persona enviada y recibida. */
+
         try {
             System.out.println("PROGRAMA CLIENTE INICIADO");
             DatagramSocket Cliente = new DatagramSocket();

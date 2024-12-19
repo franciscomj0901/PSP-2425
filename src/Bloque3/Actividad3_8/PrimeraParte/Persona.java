@@ -1,6 +1,10 @@
 package Bloque3.Actividad3_8.PrimeraParte;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
+    /* Clase Persona que representa a una persona con atributos como nombre, apellido y edad.
+        Implementa la interfaz Serializable. */
     String nombre;
     String apellido;
     int edad;
