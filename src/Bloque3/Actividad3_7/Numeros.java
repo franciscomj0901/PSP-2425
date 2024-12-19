@@ -3,6 +3,9 @@ package Bloque3.Actividad3_7;
 import java.io.Serializable;
 
 public class Numeros implements Serializable {
+    /* Clase número que contiene el numero, su cuadrado y su cubo. Tiene un constructor con sus atributos
+     y otro vacío. También tiene getters y setters */
+
     int numero;
     long cuadrado;
     long cubo;
